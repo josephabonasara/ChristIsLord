@@ -1,16 +1,24 @@
 // src/pages/Home.js
-import React from 'react';
-import { Container, Typography, Button } from '@mui/material';
+import React, { useState } from 'react';
+import { Container, Typography, Box } from '@mui/material';
 import StreakContainer from '../components/StreakContainer';
-import { Link } from 'react-router-dom';
+import MoodTracker from '../components/MoodTracker';
+import { getBibleGuidance } from '../services/aiService';
 
 const Home = () => {
-  const streakDays = 5;
+  const [aiResponse, setAiResponse] = useState('');
+
+  // Function to handle the AI response
+  const handleAIResponse = async (userInput) => {
+    const { mood, explanation } = userInput;
+    const response = await getBibleGuidance(mood, explanation);
+    setAiResponse(response);
+  };
 
   return (
     <div
       style={{
-        background: '#E6F0FF', // Lighter overall background for the home page
+        background: '#E6F0FF',
         minHeight: '100vh',
         display: 'flex',
         justifyContent: 'center',
@@ -22,36 +30,29 @@ const Home = () => {
         style={{
           textAlign: 'center',
           padding: '40px',
-          backgroundColor: '#FFFFFF', // White background for main content
+          backgroundColor: '#FFFFFF',
           borderRadius: '12px',
           boxShadow: '0px 6px 18px rgba(0, 0, 0, 0.1)',
           maxWidth: '600px',
         }}
       >
-        {/* Streak Container at the top */}
-        <StreakContainer streakDays={streakDays} />
+        {/* Streak Container */}
+        <StreakContainer streakDays={5} />
 
-        <Typography variant="h2" style={{ marginBottom: '20px', fontWeight: 'bold', color: '#333' }}>
-          Welcome to ChristIsLord
-        </Typography>
-        <Typography variant="h6" style={{ marginBottom: '30px', color: '#666' }}>
-          Strengthen your faith journey with personalized Bible verses, daily devotionals, and spiritual insights.
-        </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          component={Link}
-          to="/feelings"
-          style={{
-            backgroundColor: '#FFD700',
-            fontSize: '1.2rem',
-            padding: '12px 24px',
-            transition: '0.3s',
-          }}
-        >
-          Get Started with Mood Tracker
-        </Button>
+        {/* Mood Tracker */}
+        <MoodTracker handleAIResponse={handleAIResponse} />
+
+        {/* AI Response Display */}
+        {aiResponse && (
+          <Box mt={4}>
+            <Typography variant="h6" style={{ color: '#333' }}>
+              Based on your feelings, here’s a Bible passage for you:
+            </Typography>
+            <Typography variant="body1" style={{ color: '#555', marginTop: '10px' }}>
+              {aiResponse}
+            </Typography>
+          </Box>
+        )}
       </Container>
     </div>
   );
