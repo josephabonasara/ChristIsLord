@@ -1,0 +1,23 @@
+/* src/styles/App.css */
+.App {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f4;
+}
+
+h1, h2, h3, h4 {
+  color: #333;
+}
+
+button {
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
