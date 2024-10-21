@@ -1,18 +1,28 @@
-// src/pages/AIChatPage.js
-import React, { useState } from 'react';
+// src/pages/GuidancePage.js
+import React, { useState, useEffect } from 'react';
 import { Container, Typography, TextField, Button, Box, Avatar, IconButton } from '@mui/material';
-import { Link } from 'react-router-dom'; // Add Link for navigation
-import HomeIcon from '@mui/icons-material/Home'; // Import Home icon
-import { getAIExplanation } from '../services/aiService';
+import { Link, useParams } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home'; // Import the Home icon
+import { getBibleGuidance } from '../services/aiService';
 
-const AI_PROFILE_PIC = 'https://i.imgur.com/qIufhof.png'; // Sample AI avatar
+const AI_PROFILE_PIC = 'https://i.imgur.com/qIufhof.png';
 
-const AIChatPage = ({ verse }) => {
+const GuidancePage = () => {
+  const { mood } = useParams();  // Get the mood from the route
   const [conversation, setConversation] = useState([]);
   const [userQuery, setUserQuery] = useState('');
-  const [aiResponse, setAiResponse] = useState('');
 
-  // Handle user asking questions
+  // Fetch initial AI guidance when the page loads
+  useEffect(() => {
+    const fetchGuidance = async () => {
+      const response = await getBibleGuidance(mood, `The user feels ${mood}.`);
+      setConversation([{ role: 'AI', text: response }]);
+    };
+
+    fetchGuidance();
+  }, [mood]);
+
+  // Handle user asking follow-up questions
   const handleAskAI = async () => {
     if (userQuery.trim()) {
       // Add user's query to the conversation
@@ -20,7 +30,7 @@ const AIChatPage = ({ verse }) => {
       setConversation(newConversation);
 
       // Fetch AI response and add it to the conversation
-      const response = await getAIExplanation(verse, userQuery);
+      const response = await getBibleGuidance(mood, userQuery);
       setConversation([...newConversation, { role: 'AI', text: response }]);
       
       // Clear the input field
@@ -43,12 +53,12 @@ const AIChatPage = ({ verse }) => {
         justifyContent: 'space-between',
       }}
     >
-      {/* Verse of the Day */}
       <Typography variant="h5" style={{ fontWeight: 'bold', marginBottom: '20px' }}>
-        Verse of the Day
+        Bible Guidance Based on Your Feelings
       </Typography>
+
       <Typography variant="body1" style={{ marginBottom: '20px', color: '#555' }}>
-        {verse}
+        You mentioned you're feeling {mood}. Here's some guidance from the Bible:
       </Typography>
 
       {/* Chat conversation area */}
@@ -146,4 +156,4 @@ const AIChatPage = ({ verse }) => {
   );
 };
 
-export default AIChatPage;
+export default GuidancePage;

@@ -2,6 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import GuidancePage from './pages/GuidancePage';
 import AIChatPage from './pages/AIChatPage';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home verseOfTheDay={verseOfTheDay} />} />
         <Route path="/ask-ai" element={<AIChatPage verse={verseOfTheDay} />} />
+        <Route path="/guidance/:mood" element={<GuidancePage />} /> {/* New route for mood guidance */}
       </Routes>
     </Router>
   );
