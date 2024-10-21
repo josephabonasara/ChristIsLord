@@ -1,14 +1,15 @@
 // src/pages/Home.js
 import React, { useState } from 'react';
-import { Container, Typography, Box } from '@mui/material';
+import { Container } from '@mui/material';
 import StreakContainer from '../components/StreakContainer';
 import MoodTracker from '../components/MoodTracker';
+import VerseOfTheDay from '../components/VerseOfTheDay';
 import { getBibleGuidance } from '../services/aiService';
 
-const Home = () => {
+const Home = ({ verseOfTheDay }) => {
   const [aiResponse, setAiResponse] = useState('');
 
-  // Function to handle the AI response
+  // Function to handle AI response from the Mood Tracker
   const handleAIResponse = async (userInput) => {
     const { mood, explanation } = userInput;
     const response = await getBibleGuidance(mood, explanation);
@@ -42,16 +43,15 @@ const Home = () => {
         {/* Mood Tracker */}
         <MoodTracker handleAIResponse={handleAIResponse} />
 
-        {/* AI Response Display */}
+        {/* Verse of the Day */}
+        <VerseOfTheDay verse={verseOfTheDay} />
+
+        {/* AI Response Display from Mood */}
         {aiResponse && (
-          <Box mt={4}>
-            <Typography variant="h6" style={{ color: '#333' }}>
-              Based on your feelings, here’s a Bible passage for you:
-            </Typography>
-            <Typography variant="body1" style={{ color: '#555', marginTop: '10px' }}>
-              {aiResponse}
-            </Typography>
-          </Box>
+          <div style={{ marginTop: '30px' }}>
+            <h6>Based on your feelings, here’s a Bible passage for you:</h6>
+            <p>{aiResponse}</p>
+          </div>
         )}
       </Container>
     </div>
