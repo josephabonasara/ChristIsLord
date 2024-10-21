@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/josephabonasara.github.io/ChristIsLord/static/css/main.ac5c41c8.css",
+    "main.js": "/josephabonasara.github.io/ChristIsLord/static/js/main.5e3c71cb.js",
+    "static/js/453.c409c480.chunk.js": "/josephabonasara.github.io/ChristIsLord/static/js/453.c409c480.chunk.js",
+    "index.html": "/josephabonasara.github.io/ChristIsLord/index.html",
+    "main.ac5c41c8.css.map": "/josephabonasara.github.io/ChristIsLord/static/css/main.ac5c41c8.css.map",
+    "main.5e3c71cb.js.map": "/josephabonasara.github.io/ChristIsLord/static/js/main.5e3c71cb.js.map",
+    "453.c409c480.chunk.js.map": "/josephabonasara.github.io/ChristIsLord/static/js/453.c409c480.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ac5c41c8.css",
+    "static/js/main.5e3c71cb.js"
+  ]
+}
