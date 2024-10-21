@@ -1,6 +1,7 @@
 // src/components/MoodTracker.js
 import React, { useState } from 'react';
 import { Container, Typography, Button, Box, TextField } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const MoodTracker = ({ handleAIResponse }) => {
   const [selectedMood, setSelectedMood] = useState(null);
@@ -15,20 +16,11 @@ const MoodTracker = ({ handleAIResponse }) => {
     { label: 'overwhelmed', emoji: '😵' },
     { label: 'calm', emoji: '😌' },
   ];
-  
+
   // Handle mood selection
   const handleMoodSelect = (mood) => {
     setSelectedMood(mood);
     setShowExplanation(true); // Show explanation prompt after selecting a mood
-  };
-
-  // Handle submission of feelings explanation
-  const handleSubmit = () => {
-    if (feelingExplanation) {
-      handleAIResponse({ mood: selectedMood.label, explanation: feelingExplanation });
-      setFeelingExplanation(''); // Clear the input
-      setShowExplanation(false); // Hide explanation prompt
-    }
   };
 
   return (
@@ -73,27 +65,17 @@ const MoodTracker = ({ handleAIResponse }) => {
         ))}
       </Box>
 
-      {/* Show explanation input when a mood is selected */}
-      {showExplanation && (
+      {/* Show "Need Guidance?" button when a mood is selected */}
+      {selectedMood && (
         <Box mt={4}>
-          <Typography variant="h6">Why do you feel {selectedMood.label}?</Typography>
-          <TextField
-            fullWidth
-            multiline
-            rows={4}
-            variant="outlined"
-            placeholder="Explain your feelings"
-            value={feelingExplanation}
-            onChange={(e) => setFeelingExplanation(e.target.value)}
-            style={{ marginTop: '15px', marginBottom: '15px' }}
-          />
           <Button
             variant="contained"
             color="primary"
-            onClick={handleSubmit}
+            component={Link}
+            to={`/guidance/${selectedMood.label}`}
             style={{ padding: '10px 20px', backgroundColor: '#FF5722', color: '#fff' }}
           >
-            Submit
+            Need Guidance?
           </Button>
         </Box>
       )}
