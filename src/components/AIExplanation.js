@@ -1,6 +1,6 @@
 // src/components/AIExplanation.js
 import React, { useState } from 'react';
-import { getAIExplanation } from '../services/aiService'; // Import the AI service
+import { getAIExplanation } from '../services/aiService.js'; // Import the AI service
 
 const AIExplanation = ({ verse }) => {
   const [explanation, setExplanation] = useState('');

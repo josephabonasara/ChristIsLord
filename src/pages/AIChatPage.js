@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Container, Typography, TextField, Button, Box, Avatar, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom'; // Add Link for navigation
 import HomeIcon from '@mui/icons-material/Home'; // Import Home icon
-import { getAIExplanation } from '../services/aiService';
+import { getAIExplanation } from '../services/aiService.js';
 
 const AI_PROFILE_PIC = 'https://i.imgur.com/qIufhof.png'; // Sample AI avatar
 

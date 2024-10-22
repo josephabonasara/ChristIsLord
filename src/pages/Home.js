@@ -1,9 +1,11 @@
 // src/pages/Home.js
 import React, { useState } from 'react';
 import { Container, Typography, Button, Box } from '@mui/material';
-import StreakContainer from '../components/StreakContainer';
-import MoodTracker from '../components/MoodTracker';
-import VerseOfTheDay from '../components/VerseOfTheDay';
+import StreakContainer from '../components/StreakContainer.js';
+import MoodTracker from '../components/MoodTracker.js';
+import VerseOfTheDay from '../components/VerseOfTheDay.js';
+import { Link } from 'react-router-dom';
+
 
 const Home = ({ verseOfTheDay }) => {
   const [quizAvailable, setQuizAvailable] = useState(false);
@@ -37,6 +39,10 @@ const Home = ({ verseOfTheDay }) => {
           maxWidth: '600px',
         }}
       >
+        <Typography variant="h4" style={{ marginBottom: '20px' }}>
+          Welcome to the ChristIsLord App
+        </Typography>
+
         {/* Streak Container */}
         <StreakContainer streakDays={5} />
 
@@ -80,6 +86,19 @@ const Home = ({ verseOfTheDay }) => {
         >
           Take Quiz
         </Button>
+
+        {/* Bible Reader Link */}
+      <Box mt={3}>
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/bible"
+          style={{ padding: '10px 20px' }}
+        >
+          Read the Bible
+        </Button>
+      </Box>
       </Container>
     </div>
   );

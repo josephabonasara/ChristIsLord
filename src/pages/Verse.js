@@ -1,9 +1,9 @@
 // src/pages/Verse.js
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Card, CardContent } from '@mui/material';
-import VerseOfTheDay from '../components/VerseOfTheDay';
-import AIExplanation from '../components/AIExplanation';
-import { getVerseOfTheDay } from '../services/bibleService';
+import VerseOfTheDay from '../components/VerseOfTheDay.js';
+import AIExplanation from '../components/AIExplanation.js';
+import { getVerseOfTheDay } from '../services/bibleService.js';
 
 const Verse = () => {
   const [verse, setVerse] = useState('');

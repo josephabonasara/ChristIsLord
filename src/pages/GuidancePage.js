@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Typography, TextField, Button, Box, Avatar, IconButton } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home'; // Import the Home icon
-import { getBibleGuidance } from '../services/aiService';
+import { getBibleGuidance } from '../services/aiService.js';
 
 const AI_PROFILE_PIC = 'https://i.imgur.com/qIufhof.png';
 
