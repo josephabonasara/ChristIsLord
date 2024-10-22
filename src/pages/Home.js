@@ -1,19 +1,19 @@
 // src/pages/Home.js
 import React, { useState } from 'react';
-import { Container } from '@mui/material';
+import { Container, Typography, Button, Box } from '@mui/material';
 import StreakContainer from '../components/StreakContainer';
 import MoodTracker from '../components/MoodTracker';
 import VerseOfTheDay from '../components/VerseOfTheDay';
-import { getBibleGuidance } from '../services/aiService';
 
 const Home = ({ verseOfTheDay }) => {
-  const [aiResponse, setAiResponse] = useState('');
+  const [quizAvailable, setQuizAvailable] = useState(false);
 
-  // Function to handle AI response from the Mood Tracker
-  const handleAIResponse = async (userInput) => {
-    const { mood, explanation } = userInput;
-    const response = await getBibleGuidance(mood, explanation);
-    setAiResponse(response);
+  // Function to enable the quiz button when the user scrolls to the bottom
+  const handleScroll = (e) => {
+    const container = e.target;
+    if (container.scrollHeight - container.scrollTop === container.clientHeight) {
+      setQuizAvailable(true);
+    }
   };
 
   return (
@@ -41,18 +41,45 @@ const Home = ({ verseOfTheDay }) => {
         <StreakContainer streakDays={5} />
 
         {/* Mood Tracker */}
-        <MoodTracker handleAIResponse={handleAIResponse} />
+        <MoodTracker />
 
         {/* Verse of the Day */}
         <VerseOfTheDay verse={verseOfTheDay} />
 
-        {/* AI Response Display from Mood */}
-        {aiResponse && (
-          <div style={{ marginTop: '30px' }}>
-            <h6>Based on your feelings, here’s a Bible passage for you:</h6>
-            <p>{aiResponse}</p>
-          </div>
-        )}
+        {/* Bible Passage of the Day Section */}
+        <Typography variant="h5" style={{ fontWeight: 'bold', marginTop: '30px' }}>
+          Bible Passage of the Day
+        </Typography>
+        <Box
+          style={{
+            maxHeight: '200px',
+            overflowY: 'scroll',
+            padding: '20px',
+            marginBottom: '20px',
+            border: '1px solid #E0E0E0',
+            borderRadius: '8px',
+            backgroundColor: '#F9F9F9',
+          }}
+          onScroll={handleScroll}
+        >
+          <Typography variant="body1">
+            "In the beginning was the Word, and the Word was with God, and the Word was God. 
+            He was with God in the beginning. Through him all things were made; without him nothing was made that has been made. 
+            In him was life, and that life was the light of all mankind. The light shines in the darkness, and the darkness has not overcome it." 
+            - John 1:1-5
+          </Typography>
+          {/* Continue displaying the Bible passage here */}
+        </Box>
+
+        {/* Take Quiz Button */}
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={!quizAvailable}  // Enable button only after scrolling
+          style={{ backgroundColor: quizAvailable ? '#FF5722' : '#CCCCCC', padding: '10px 20px' }}
+        >
+          Take Quiz
+        </Button>
       </Container>
     </div>
   );
