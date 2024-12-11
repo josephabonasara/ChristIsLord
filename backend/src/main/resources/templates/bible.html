@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bible Reader</title>
+</head>
+<body>
+    <h1>Bible Reader</h1>
+    <form action="/bible" method="get">
+        <label for="version">Version:</label>
+        <select name="version" id="version">
+            <option value="de4e12af7f28f599-02" th:selected="${version == 'de4e12af7f28f599-02'}">KJV</option>
+            <option value="06125adad2d5898a-01" th:selected="${version == '06125adad2d5898a-01'}">NIV</option>
+        </select>
+
+        <label for="bookId">Book:</label>
+        <select name="bookId" id="bookId">
+            <option value="GEN" th:selected="${bookId == 'GEN'}">Genesis</option>
+            <option value="JOH" th:selected="${bookId == 'JOH'}">John</option>
+        </select>
+
+        <label for="chapter">Chapter:</label>
+        <input type="number" name="chapter" id="chapter" min="1" max="50" th:value="${chapter}" />
+        
+        <button type="submit">Go</button>
+    </form>
+
+    <div>
+        <h2>Chapter Content</h2>
+        <div th:utext="${content}"></div> <!-- Render HTML content from the API -->
+    </div>
+
+    <a href="/">Go Home</a>
+</body>
+</html>
