@@ -18,4 +18,14 @@ public class BibleController {
                                   @RequestParam String chapter) {
         return bibleService.getChapterContent(version, bookId, chapter);
     }
+
+    @GetMapping("/api/random-verse")
+    public String getRandomVerse() {
+        return bibleService.getRandomVerse();
+    }
+
+    @GetMapping("/api/verse-of-the-day")
+    public String getVerseOfTheDay() {
+        return bibleService.getVerseOfTheDay();
+    }
 }
