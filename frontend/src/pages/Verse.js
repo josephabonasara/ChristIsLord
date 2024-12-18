@@ -1,4 +1,3 @@
-// src/pages/Verse.js
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Card, CardContent } from '@mui/material';
 import VerseOfTheDay from '../components/VerseOfTheDay.js';

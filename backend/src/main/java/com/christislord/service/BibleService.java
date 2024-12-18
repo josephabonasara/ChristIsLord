@@ -29,4 +29,21 @@ public class BibleService {
             return "Error fetching Bible content: " + e.getMessage();
         }
     }
+
+    public String getRandomVerse() {
+        String url = String.format("%s/bibles/%s/verses/%s", BASE_URL, "de4e12af7f28f599-02", "random");
+        RestTemplate restTemplate = new RestTemplate();
+        
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("api-key", API_KEY);
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            JSONObject jsonResponse = new JSONObject(response.getBody());
+            return jsonResponse.getJSONObject("data").getString("content"); // Extract content from JSON
+        } catch (Exception e) {
+            return "Error fetching random verse: " + e.getMessage();
+        }
+    }
 }
