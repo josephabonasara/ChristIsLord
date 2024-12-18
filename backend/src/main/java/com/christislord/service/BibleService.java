@@ -8,6 +8,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
+
 @Service
 public class BibleService {
     private final String API_KEY = "534a09359416517d7d89a87382c73db4";
@@ -27,6 +31,45 @@ public class BibleService {
             return jsonResponse.getJSONObject("data").getString("content"); // Extract content from JSON
         } catch (Exception e) {
             return "Error fetching Bible content: " + e.getMessage();
+        }
+    }
+
+    public String getRandomVerse() {
+        String url = String.format("%s/bibles/%s/verses/%s", BASE_URL, "de4e12af7f28f599-02", "random");
+        RestTemplate restTemplate = new RestTemplate();
+        
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("api-key", API_KEY);
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            JSONObject jsonResponse = new JSONObject(response.getBody());
+            return jsonResponse.getJSONObject("data").getString("content"); // Extract content from JSON
+        } catch (Exception e) {
+            return "Error fetching random verse: " + e.getMessage();
+        }
+    }
+
+    public String getVerseOfTheDay() {
+        LocalDate today = LocalDate.now();
+        int dayOfYear = today.getDayOfYear();
+        Random random = new Random(dayOfYear);
+        int randomVerseId = random.nextInt(31102) + 1; // Assuming there are 31102 verses in the Bible
+
+        String url = String.format("%s/bibles/%s/verses/%d", BASE_URL, "de4e12af7f28f599-02", randomVerseId);
+        RestTemplate restTemplate = new RestTemplate();
+        
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("api-key", API_KEY);
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            JSONObject jsonResponse = new JSONObject(response.getBody());
+            return jsonResponse.getJSONObject("data").getString("content"); // Extract content from JSON
+        } catch (Exception e) {
+            return "Error fetching verse of the day: " + e.getMessage();
         }
     }
 }
