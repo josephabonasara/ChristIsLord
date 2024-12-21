@@ -1,13 +1,21 @@
-// src/App.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home.js';
 import GuidancePage from './pages/GuidancePage.js';
 import AIChatPage from './pages/AIChatPage.js';
 import BibleReader from './components/BibleReader.js';
+import { getVerseOfTheDay } from './services/bibleService.js';
 
 function App() {
-  const verseOfTheDay = "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future. - Jeremiah 29:11";
+  const [verseOfTheDay, setVerseOfTheDay] = useState('');
+
+  useEffect(() => {
+    const fetchVerse = async () => {
+      const dailyVerse = await getVerseOfTheDay();
+      setVerseOfTheDay(dailyVerse);
+    };
+    fetchVerse();
+  }, []);
 
   return (
     <Router>
