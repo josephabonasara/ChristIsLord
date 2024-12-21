@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.json.JSONObject;
 
 @RestController
 public class BibleController {
@@ -25,6 +26,11 @@ public class BibleController {
 
     @GetMapping("/api/verse-of-the-day")
     public String getVerseOfTheDay() {
-        return verseOfTheDayService.getVerseOfTheDay();
+        // Temporarily call updateVerseOfTheDay to ensure it works
+        verseOfTheDayService.updateVerseOfTheDay();
+        String verse = verseOfTheDayService.getVerseOfTheDay();
+        JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("verse", verse);
+        return jsonResponse.toString();
     }
 }
