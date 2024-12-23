@@ -1,14 +1,17 @@
-// src/pages/Home.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Typography, Button, Box } from '@mui/material';
 import StreakContainer from '../components/StreakContainer.js';
 import MoodTracker from '../components/MoodTracker.js';
 import VerseOfTheDay from '../components/VerseOfTheDay.js';
 import { Link } from 'react-router-dom';
-
+import { scheduleNotifications } from '../utils/notificationHelper.js';
 
 const Home = ({ verseOfTheDay }) => {
   const [quizAvailable, setQuizAvailable] = useState(false);
+
+  useEffect(() => {
+    scheduleNotifications();
+  }, []);
 
   // Function to enable the quiz button when the user scrolls to the bottom
   const handleScroll = (e) => {
