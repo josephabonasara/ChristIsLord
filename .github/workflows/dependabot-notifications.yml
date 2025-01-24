@@ -1,6 +1,7 @@
 name: Notify Dependabot PRs
 
 on:
+  workflow_dispatch:  # Allow manual trigger
   schedule:
     - cron: "0 9 * * *"  # Daily at 9 AM UTC
 
