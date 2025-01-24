@@ -1,0 +1,17 @@
+name: Notify Dependabot PRs
+
+on:
+  schedule:
+    - cron: "0 9 * * *"  # Daily at 9 AM UTC
+
+jobs:
+  notify-dependabot-prs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Dependabot PRs
+        uses: josephabonasara/gitconnect@v1.0.0
+        with:
+          slack-token: ${{ secrets.SLACK_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          slack-channel: "#dependabot-notifications"
+          repositories: '["dependabot/dependabot-core"]'
